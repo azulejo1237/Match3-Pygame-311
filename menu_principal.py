@@ -1,15 +1,10 @@
 import pygame
 from contantes import *
 
-#Banderas
-corriendo = True
-bandera_pantalla = "Principal"
-
 pygame.init()
 
 # Creo la ventana del juego
 ventana_menu_principa = pygame.display.set_mode(tamaño_pantalla)
-ventana_menu_puntaje = pygame.display.set_mode(tamaño_pantalla)
 # Titulo de la ventana
 pygame.display.set_caption("Candy Crush si fuera bueno")
 # Carga la imagen
@@ -60,50 +55,32 @@ pygame.mixer.music.play(-1)
 # Sonido del boton al salir
 sonido_click = pygame.mixer.Sound("assets/sonidos/bumper.mp3")
 
-while corriendo == True:
-    if bandera_pantalla == "Principal":
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                corriendo = False
-            if evento.type == pygame.MOUSEBUTTONDOWN:
-                if boton_salir_main.collidepoint(evento.pos):
-                    sonido_click.play()
-                    corriendo = False
-                elif boton_jugar.collidepoint(evento.pos):
-                    sonido_click.play()
-                    bandera_pantalla = "Juego"
-                elif boton_resolucion.collidepoint(evento.pos):
-                    sonido_click.play()
-                elif boton_puntajes.collidepoint(evento.pos):
-                    sonido_click.play()
-                    bandera_pantalla = "Puntajes"
-        ventana_menu_principa.blit(fondo_menu_principal_img, (0,0))
-            # Dibuja la imagen de fondo
+while True:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+        if evento.type == pygame.MOUSEBUTTONDOWN:
+            if boton_salir_main.collidepoint(evento.pos):
+                sonido_click.play()
+                pygame.time.delay(700)
+                pygame.quit()
+                quit()
         
-        
-        # Dibuja el boton
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_jugar, border_radius = 10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_puntajes, border_radius = 10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_resolucion, border_radius = 10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_salir_main, border_radius = 10)
-        
-        # Dibuja el texto del boton
-        ventana_menu_principa.blit(texto_jugar_boton, texto_jugar_rect)
-        ventana_menu_principa.blit(texto_puntajes_boton, texto_puntajes_rect)
-        ventana_menu_principa.blit(texto_resolucion_boton, texto_resolucion_rect)
-        ventana_menu_principa.blit(texto_salir_main_boton, texto_salir_main_rect)
-
-
-
-    elif bandera_pantalla == "Puntajes":
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                corriendo = False
-        ventana_menu_puntaje.fill(Color_BOTON)
-
-
-
-
+    # Dibuja la imagen de fondo
+    ventana_menu_principa.blit(fondo_menu_principal_img, (0,0))
+    
+    # Dibuja el boton
+    pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_jugar, border_radius = 10)
+    pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_puntajes, border_radius = 10)
+    pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_resolucion, border_radius = 10)
+    pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_salir_main, border_radius = 10)
+    
+    # Dibuja el texto del boton
+    ventana_menu_principa.blit(texto_jugar_boton, texto_jugar_rect)
+    ventana_menu_principa.blit(texto_puntajes_boton, texto_puntajes_rect)
+    ventana_menu_principa.blit(texto_resolucion_boton, texto_resolucion_rect)
+    ventana_menu_principa.blit(texto_salir_main_boton, texto_salir_main_rect)
 
     # Actualiza la pantalla
     pygame.display.flip()
