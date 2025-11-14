@@ -52,9 +52,6 @@ pygame.mixer.music.load("assets/sonidos/musica_menu.mp3")
 pygame.mixer.music.set_volume(0.2)
 pygame.mixer.music.play(-1)
 
-# Sonido del boton al salir
-sonido_click = pygame.mixer.Sound("assets/sonidos/bumper.mp3")
-
 while True:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -62,8 +59,6 @@ while True:
             quit()
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_salir_main.collidepoint(evento.pos):
-                sonido_click.play()
-                pygame.time.delay(700)
                 pygame.quit()
                 quit()
         
