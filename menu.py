@@ -19,16 +19,19 @@ fondo_menu_principal_img = pygame.transform.scale(fondo_menu_principal_img, tama
 
 # Crea el boton jugar
 boton_jugar = pygame.Rect(0, 0, 200, 60)
-boton_jugar.center = (ANCHO // 2, ALTO // 2 -200)
+boton_jugar.center = (ANCHO // 2, ALTO // 2 - 200)
 
 boton_puntajes = pygame.Rect(0, 0, 200, 60)
-boton_puntajes.center = (ANCHO // 2, ALTO // 2 -100)
+boton_puntajes.center = (ANCHO // 2, ALTO // 2 - 100)
 
 boton_resolucion = pygame.Rect(0, 0, 200, 60)
 boton_resolucion.center = (ANCHO // 2, ALTO // 2)
 
 boton_salir_main = pygame.Rect(0, 0, 200, 60)
-boton_salir_main.center = (ANCHO // 2, ALTO // 2 +100 )
+boton_salir_main.center = (ANCHO // 2, ALTO // 2 + 100 )
+
+boton_atras_main = pygame.Rect(0, 0, 200, 60)
+boton_atras_main.center = (ANCHO // 2, ALTO // 1.5 + 100 )
 
 # Fuente del texto
 fuente_menu_principal = pygame.font.SysFont("arial", 32)
@@ -45,11 +48,15 @@ texto_resolucion_rect = texto_resolucion_boton.get_rect()
 texto_salir_main_boton = fuente_menu_principal.render("salir", True, COLOR_TEXTO_BOTON)
 texto_salir_main_rect = texto_salir_main_boton.get_rect()
 
+texto_atras_boton = fuente_menu_principal.render("Atras", True, COLOR_TEXTO_BOTON)
+texto_atras_rect = texto_atras_boton.get_rect()
+
 # centro la imagen/texto al boton
 texto_jugar_rect.center = boton_jugar.center
 texto_puntajes_rect.center = boton_puntajes.center
 texto_resolucion_rect.center = boton_resolucion.center
 texto_salir_main_rect.center = boton_salir_main.center
+texto_atras_rect.center = boton_atras_main.center
 
 # Musica del menu
 pygame.mixer.init()
@@ -99,9 +106,19 @@ while corriendo == True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 corriendo = False
-        ventana_menu_puntaje.fill(Color_BOTON)
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if boton_atras_main.collidepoint(evento.pos):
+                    sonido_click.play()
+                    bandera_pantalla = "Principal"
+        ventana_menu_puntaje.fill(color_pantalla_puntajes)
 
 
+
+
+        #botones
+        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_atras_main, border_radius = 10)
+        #texto botones
+        ventana_menu_principa.blit(texto_atras_boton , texto_atras_rect)
 
 
 
