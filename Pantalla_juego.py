@@ -50,21 +50,20 @@ y_temporizador = 200
 y_puntaje = 300
 
 # Botones
-ancho_boton = ancho_panel * 0.8
-alto_boton = 70
-x_boton = x_panel + (ancho_panel - ancho_boton) / 2
+ancho_boton = int(ancho_panel * 0.8)
+alto_boton = int(pantalla.get_height() * 0.07)
+x_boton = x_panel + (ancho_panel - ancho_boton) // 2
 
 # BOTON REINICIAR
 y_boton_reiniciar = 450
 rect_boton_reiniciar = pygame.Rect(x_boton, y_boton_reiniciar, ancho_boton, alto_boton)
 texto_reiniciar = fuente_pequena.render("Reiniciar", True, COLOR_FONDO)
-texto_reiniciar = pygame.transform.scale(texto_reiniciar, (int(ancho_boton // 2), int(alto_boton // 2)))
-
+rect_texto_reiniciar = texto_reiniciar.get_rect(center=rect_boton_reiniciar.center)
 # BOTON VOLVER
 y_boton_volver = 550
 rect_boton_volver = pygame.Rect(x_boton, y_boton_volver, ancho_boton, alto_boton)
 texto_volver = fuente_pequena.render("Volver", True, COLOR_FONDO)
-texto_volver = pygame.transform.scale(texto_volver, (int(ancho_boton // 2), int(alto_boton // 2)))
+rect_texto_volver = texto_volver.get_rect(center=rect_boton_volver.center)
 
 # INICIALIZAR MATRIZ
 def inicializar_matriz(cant_filas: int, cant_columnas: int, valor_inicial: any = None) -> list[list]:
