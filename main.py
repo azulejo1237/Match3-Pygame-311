@@ -91,10 +91,10 @@ def menu_interacciones(bandera_pantalla):
                     return "Puntajes"
 
         ventana_menu_principa.blit(fondo_menu_principal_img, (0,0))
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_jugar, border_radius=10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_puntajes, border_radius=10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_resolucion, border_radius=10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_salir_main, border_radius=10)
+        pygame.draw.rect(ventana_menu_principa, COLOR_BOTON_MENU, boton_jugar, border_radius=10)
+        pygame.draw.rect(ventana_menu_principa, COLOR_BOTON_MENU, boton_puntajes, border_radius=10)
+        pygame.draw.rect(ventana_menu_principa, COLOR_BOTON_MENU, boton_resolucion, border_radius=10)
+        pygame.draw.rect(ventana_menu_principa, COLOR_BOTON_MENU, boton_salir_main, border_radius=10)
 
         ventana_menu_principa.blit(texto_jugar_boton, texto_jugar_rect)
         ventana_menu_principa.blit(texto_puntajes_boton, texto_puntajes_rect)
@@ -112,8 +112,8 @@ def menu_interacciones(bandera_pantalla):
                     sonido_click.play()
                     return "Principal"
 
-        ventana_menu_puntaje.fill(color_pantalla_puntajes)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_atras_main, border_radius=10)
+        ventana_menu_puntaje.fill(COLOR_PANTALLA_PUNTAJES)
+        pygame.draw.rect(ventana_menu_principa, COLOR_BOTON_MENU, boton_atras_main, border_radius=10)
         ventana_menu_principa.blit(texto_atras_boton, texto_atras_rect)
 
 

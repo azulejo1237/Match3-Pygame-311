@@ -1,27 +1,23 @@
 import pygame
+from constantes import *
 from random import randint
 
 pygame.init()
 
-TAMANIO_PANTALLA = [1200, 900]
 CANTIDAD_FILAS = 8
 CANTIDAD_COLUMNAS = 8
 
-pantalla = pygame.display.set_mode(TAMANIO_PANTALLA)
+pantalla = pygame.display.set_mode(tamaño_pantalla)
 corriendo = True
 
-COLOR_FONDO = (45, 52, 54)
-COLOR_BOTON = (99, 110, 114)
-COLOR_TEXTO = (236, 240, 241)
-COLOR_TEMPORIZADOR = (231, 76, 60)
-COLOR_PUNTAJE = (46, 204, 113)
+
 
 # COLORES
 lista_color = [(255, 0, 0), (0, 0, 255), (0, 255, 0), (255, 255, 0), (150, 0, 120), (0, 200, 225)]
 
 
 
-# FFUENTES
+# FUENTES
 fuente_grande = pygame.font.SysFont("arial", 60, True)
 fuente_mediana = pygame.font.SysFont("arial", 45)
 fuente_pequena = pygame.font.SysFont("arial", 35)
@@ -62,13 +58,13 @@ x_boton = x_panel + (ancho_panel - ancho_boton) / 2
 y_boton_reiniciar = 450
 rect_boton_reiniciar = pygame.Rect(x_boton, y_boton_reiniciar, ancho_boton, alto_boton)
 texto_reiniciar = fuente_pequena.render("Reiniciar", True, COLOR_FONDO)
-texto_reiniciar = pygame.transform.scale(texto_reiniciar, (int(ancho_boton * 0.9), int(alto_boton * 0.6)))
+texto_reiniciar = pygame.transform.scale(texto_reiniciar, (int(ancho_boton // 2), int(alto_boton // 2)))
 
 # BOTON VOLVER
 y_boton_volver = 550
 rect_boton_volver = pygame.Rect(x_boton, y_boton_volver, ancho_boton, alto_boton)
 texto_volver = fuente_pequena.render("Volver", True, COLOR_FONDO)
-texto_volver = pygame.transform.scale(texto_volver, (int(ancho_boton * 0.9), int(alto_boton * 0.6)))
+texto_volver = pygame.transform.scale(texto_volver, (int(ancho_boton // 2), int(alto_boton // 2)))
 
 # INICIALIZAR MATRIZ
 def inicializar_matriz(cant_filas: int, cant_columnas: int, valor_inicial: any = None) -> list[list]:
