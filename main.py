@@ -1,14 +1,12 @@
 import pygame
 from constantes import *
+from utilidades import *
 from pantalla_juego import *
 
 
 pygame.init()
 
-# Creo la ventana del juego
-ventana_juego = pygame.display.set_mode(tamaño_pantalla)
-# Titulo de la ventana
-pygame.display.set_caption("Candy Crush si fuera bueno")
+
 # Carga la imagen
 fondo_menu_principal_img = pygame.image.load("assets/imagenes/tuki.jpg")
 # Redimensiona la imagen
@@ -30,8 +28,6 @@ boton_salir_main.center = (ANCHO // 2, ALTO // 2 + 100 )
 boton_atras_main = pygame.Rect(0, 0, 200, 60)
 boton_atras_main.center = (ANCHO // 2, ALTO // 1.5 + 100 )
 
-# Fuente del texto
-fuente_menu_principal = pygame.font.SysFont("arial", 32)
 # Convierte el texto a una imagen
 texto_jugar_boton = fuente_menu_principal.render("Jugar", True, COLOR_TEXTO_BOTON)
 texto_jugar_rect = texto_jugar_boton.get_rect()

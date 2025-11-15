@@ -1,26 +1,14 @@
 import pygame
 from constantes import *
 from random import randint
+from utilidades import *
 
 pygame.init()
 
 CANTIDAD_FILAS = 8
 CANTIDAD_COLUMNAS = 8
 
-pantalla = pygame.display.set_mode(tamaño_pantalla)
 corriendo = True
-
-
-
-# COLORES
-lista_color = [(255, 0, 0), (0, 0, 255), (0, 255, 0), (255, 255, 0), (150, 0, 120), (0, 200, 225)]
-
-
-
-# FUENTES
-fuente_grande = pygame.font.SysFont("arial", 60, True)
-fuente_mediana = pygame.font.SysFont("arial", 45)
-fuente_pequena = pygame.font.SysFont("arial", 35)
 
 # VARIABLES
 temporizador = 60
@@ -32,10 +20,10 @@ texto_temporizador = fuente_mediana.render(f"Tiempo: {temporizador}", True, COLO
 texto_puntaje = fuente_mediana.render(f"Puntaje: {puntaje}", True, COLOR_PUNTAJE)
 
 # RECTANGULO CENTRADO A LA IZQUIERDA
-ancho_contenedor = int(pantalla.get_width() * 0.55)
-alto_contenedor = int(pantalla.get_height() * 0.85)
-x_contenedor = int(pantalla.get_width() * 0.05)
-y_contenedor = int((pantalla.get_height() - alto_contenedor) / 2)
+ancho_contenedor = int(ventana_juego.get_width() * 0.55)
+alto_contenedor = int(ventana_juego.get_height() * 0.85)
+x_contenedor = int(ventana_juego.get_width() * 0.05)
+y_contenedor = int((ventana_juego.get_height() - alto_contenedor) / 2)
 rect_contenedor = pygame.Rect(x_contenedor, y_contenedor, ancho_contenedor, alto_contenedor)
 
 
@@ -43,7 +31,7 @@ rect_contenedor = pygame.Rect(x_contenedor, y_contenedor, ancho_contenedor, alto
 
 # PANEL DERECHO
 x_panel = x_contenedor + ancho_contenedor + 40
-ancho_panel = pantalla.get_width() - x_panel - 40
+ancho_panel = ventana_juego.get_width() - x_panel - 40
 
 # POSICIONES DEL PANEL LAT
 y_temporizador = 200
@@ -51,7 +39,7 @@ y_puntaje = 300
 
 # Botones
 ancho_boton = int(ancho_panel * 0.8)
-alto_boton = int(pantalla.get_height() * 0.07)
+alto_boton = int(ventana_juego.get_height() * 0.07)
 x_boton = x_panel + (ancho_panel - ancho_boton) // 2
 
 # BOTON REINICIAR
@@ -87,7 +75,6 @@ def crear_botones_matriz(matriz: list[list], rect_cont: pygame.Rect) -> None:
     alto_celda = int(rect_cont.height * 0.96 / len(matriz))
     margen_x = int(rect_cont.width * 0.02) + rect_cont.x
     margen_y = int(rect_cont.height * 0.02) + rect_cont.y
-    
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             un_rectangulo = pygame.Rect(
@@ -98,11 +85,11 @@ def crear_botones_matriz(matriz: list[list], rect_cont: pygame.Rect) -> None:
             )
             matriz[i][j].update({"rect": un_rectangulo})
 
-def dibujar_matriz(matriz: list[list], pantalla: pygame.Surface) -> None:
+def dibujar_matriz(matriz: list[list], ventana_juego: pygame.Surface) -> None:
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
-            pygame.draw.rect(pantalla, matriz[i][j]["color"], matriz[i][j]["rect"])
-            pygame.draw.rect(pantalla, COLOR_FONDO, matriz[i][j]["rect"], 2)
+            pygame.draw.rect(ventana_juego, matriz[i][j]["color"], matriz[i][j]["rect"])
+            pygame.draw.rect(ventana_juego, COLOR_FONDO, matriz[i][j]["rect"], 2)
 
 # CREACION MATRIZ
 matriz = inicializar_matriz(CANTIDAD_FILAS, CANTIDAD_COLUMNAS)
@@ -110,11 +97,10 @@ cargar_matriz_aleatoria(matriz, lista_color)
 crear_botones_matriz(matriz, rect_contenedor)
 
 # BUCLE PRINCIPAL
-def juego_pantalla(pantalla:pygame.Surface):
+def juego_pantalla(ventana_juego:pygame.Surface):
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
-            corriendo = False
-        
+            return "Salir"
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if rect_boton_reiniciar.collidepoint(evento.pos):
                 print("Botón Reiniciar presionado")
@@ -126,36 +112,32 @@ def juego_pantalla(pantalla:pygame.Surface):
                         print(f"Click en celda [{i}][{j}]")
         
         
-    pantalla.fill(COLOR_FONDO)
+    ventana_juego.fill(COLOR_FONDO)
         
-    pygame.draw.rect(pantalla, (30, 30, 30), rect_contenedor)
+    pygame.draw.rect(ventana_juego, (30, 30, 30), rect_contenedor)
     
-    dibujar_matriz(matriz, pantalla)
+    dibujar_matriz(matriz, ventana_juego)
 
         # TEMPORIZADOR
     rect_texto_temporizador = texto_temporizador.get_rect()
     rect_texto_temporizador.centerx = x_panel + ancho_panel / 2
     rect_texto_temporizador.y = y_temporizador
-    pantalla.blit(texto_temporizador, rect_texto_temporizador)
+    ventana_juego.blit(texto_temporizador, rect_texto_temporizador)
     
     # PUNTAJE
     rect_texto_puntaje = texto_puntaje.get_rect()
     rect_texto_puntaje.centerx = x_panel + ancho_panel / 2
     rect_texto_puntaje.y = y_puntaje
-    pantalla.blit(texto_puntaje, rect_texto_puntaje)
+    ventana_juego.blit(texto_puntaje, rect_texto_puntaje)
         
     # BOTON REINICIAR
-    pygame.draw.rect(pantalla, COLOR_BOTON, rect_boton_reiniciar)
+    pygame.draw.rect(ventana_juego, COLOR_BOTON, rect_boton_reiniciar)
     rect_texto_reiniciar = texto_reiniciar.get_rect()
     rect_texto_reiniciar.center = rect_boton_reiniciar.center
-    pantalla.blit(texto_reiniciar, rect_texto_reiniciar)
+    ventana_juego.blit(texto_reiniciar, rect_texto_reiniciar)
     
     # BOTON VOLVER
-    pygame.draw.rect(pantalla, COLOR_BOTON, rect_boton_volver)
+    pygame.draw.rect(ventana_juego, COLOR_BOTON, rect_boton_volver)
     rect_texto_volver = texto_volver.get_rect()
     rect_texto_volver.center = rect_boton_volver.center
-    pantalla.blit(texto_volver, rect_texto_volver)
-    
-
-
-pygame.quit()
+    ventana_juego.blit(texto_volver, rect_texto_volver)
