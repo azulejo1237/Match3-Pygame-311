@@ -1,5 +1,5 @@
 import pygame
-from contantes import *
+from constantes import *
 from pantalla_juego import *
 
 
