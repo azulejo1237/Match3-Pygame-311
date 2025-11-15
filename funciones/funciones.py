@@ -1,7 +1,8 @@
 import pygame
 from contantes import *
-from pantalla_juego import *
-
+#Banderas
+corriendo = True
+bandera_pantalla = "Principal"
 
 pygame.init()
 
@@ -65,66 +66,3 @@ pygame.mixer.music.play(-1)
 
 # Sonido del boton al salir
 sonido_click = pygame.mixer.Sound("assets/sonidos/bumper.mp3")
-
-def menu_interacciones(bandera_pantalla):
-    corriendo = True 
-
-    if bandera_pantalla == "Principal":
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                return "Salir"
-
-            if evento.type == pygame.MOUSEBUTTONDOWN:
-                if boton_salir_main.collidepoint(evento.pos):
-                    sonido_click.play()
-                    return "Salir"
-
-                elif boton_jugar.collidepoint(evento.pos):
-                    sonido_click.play()
-                    return "Juego"
-
-                elif boton_resolucion.collidepoint(evento.pos):
-                    sonido_click.play()
-
-                elif boton_puntajes.collidepoint(evento.pos):
-                    sonido_click.play()
-                    return "Puntajes"
-
-        ventana_menu_principa.blit(fondo_menu_principal_img, (0,0))
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_jugar, border_radius=10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_puntajes, border_radius=10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_resolucion, border_radius=10)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_salir_main, border_radius=10)
-
-        ventana_menu_principa.blit(texto_jugar_boton, texto_jugar_rect)
-        ventana_menu_principa.blit(texto_puntajes_boton, texto_puntajes_rect)
-        ventana_menu_principa.blit(texto_resolucion_boton, texto_resolucion_rect)
-        ventana_menu_principa.blit(texto_salir_main_boton, texto_salir_main_rect)
-
-
-    elif bandera_pantalla == "Puntajes":
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                return "Salir"
-
-            if evento.type == pygame.MOUSEBUTTONDOWN:
-                if boton_atras_main.collidepoint(evento.pos):
-                    sonido_click.play()
-                    return "Principal"
-
-        ventana_menu_puntaje.fill(color_pantalla_puntajes)
-        pygame.draw.rect(ventana_menu_principa, Color_BOTON, boton_atras_main, border_radius=10)
-        ventana_menu_principa.blit(texto_atras_boton, texto_atras_rect)
-
-
-    elif bandera_pantalla == "Juego":
-        juego_pantalla(ventana_menu_juego)
-
-
-    pygame.display.flip()
-    return bandera_pantalla
-
-
-
-
-

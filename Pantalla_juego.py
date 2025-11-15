@@ -18,7 +18,7 @@ COLOR_PUNTAJE = (46, 204, 113)
 
 # COLORES
 lista_color = [(255, 0, 0), (0, 0, 255), (0, 255, 0), (255, 255, 0), (150, 0, 120), (0, 200, 225)]
-  
+
 
 
 # FFUENTES
@@ -83,8 +83,7 @@ def cargar_matriz_aleatoria(matriz: list[list], lista_color: list[tuple]) -> Non
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             matriz[i][j] = {"color": lista_color[randint(0, 5)]}
-  
-  
+
 
 
 
@@ -116,7 +115,7 @@ cargar_matriz_aleatoria(matriz, lista_color)
 crear_botones_matriz(matriz, rect_contenedor)
 
 # BUCLE PRINCIPAL
-while corriendo:
+def juego_pantalla(pantalla:pygame.Surface):
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             corriendo = False
@@ -130,18 +129,15 @@ while corriendo:
                 for j in range(len(matriz[i])):
                     if matriz[i][j]["rect"].collidepoint(evento.pos):
                         print(f"Click en celda [{i}][{j}]")
-    
-    
+        
+        
     pantalla.fill(COLOR_FONDO)
-    
-
-
-
+        
     pygame.draw.rect(pantalla, (30, 30, 30), rect_contenedor)
     
     dibujar_matriz(matriz, pantalla)
 
-    # TEMPORIZADOR
+        # TEMPORIZADOR
     rect_texto_temporizador = texto_temporizador.get_rect()
     rect_texto_temporizador.centerx = x_panel + ancho_panel / 2
     rect_texto_temporizador.y = y_temporizador
@@ -152,7 +148,7 @@ while corriendo:
     rect_texto_puntaje.centerx = x_panel + ancho_panel / 2
     rect_texto_puntaje.y = y_puntaje
     pantalla.blit(texto_puntaje, rect_texto_puntaje)
-    
+        
     # BOTON REINICIAR
     pygame.draw.rect(pantalla, COLOR_BOTON, rect_boton_reiniciar)
     rect_texto_reiniciar = texto_reiniciar.get_rect()
@@ -165,6 +161,6 @@ while corriendo:
     rect_texto_volver.center = rect_boton_volver.center
     pantalla.blit(texto_volver, rect_texto_volver)
     
-    pygame.display.flip()
+
 
 pygame.quit()
