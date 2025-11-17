@@ -62,26 +62,32 @@ sonido_click = pygame.mixer.Sound("assets/sonidos/bumper.mp3")
 
 def menu_interacciones(bandera_pantalla):
 
-    if bandera_pantalla == "Principal":
+    pantalla_actual = bandera_pantalla["pantalla"]
+
+    if pantalla_actual == "Principal":
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                return "Salir"
+                bandera_pantalla["pantalla"] = "Salir"
+                return bandera_pantalla
 
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_salir_main.collidepoint(evento.pos):
                     sonido_click.play()
-                    return "Salir"
+                    bandera_pantalla["pantalla"] = "Salir"
+                    return bandera_pantalla
 
                 elif boton_jugar.collidepoint(evento.pos):
                     sonido_click.play()
-                    return "Juego"
+                    bandera_pantalla["pantalla"] = "Juego"
+                    return bandera_pantalla
 
                 elif boton_resolucion.collidepoint(evento.pos):
                     sonido_click.play()
 
                 elif boton_puntajes.collidepoint(evento.pos):
                     sonido_click.play()
-                    return "Puntajes"
+                    bandera_pantalla["pantalla"] = "Puntajes"
+                    return bandera_pantalla
 
         ventana_juego.blit(fondo_menu_principal_img, (0,0))
         pygame.draw.rect(ventana_juego, COLOR_BOTON_MENU, boton_jugar, border_radius=10)
@@ -95,25 +101,31 @@ def menu_interacciones(bandera_pantalla):
         ventana_juego.blit(texto_salir_main_boton, texto_salir_main_rect)
 
 
-    elif bandera_pantalla == "Puntajes":
+    elif pantalla_actual == "Puntajes":
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                return "Salir"
+                bandera_pantalla["pantalla"] = "Salir"
+                return bandera_pantalla
 
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_atras_main.collidepoint(evento.pos):
                     sonido_click.play()
-                    return "Principal"
+                    bandera_pantalla["pantalla"] = "Principal"
+                    return bandera_pantalla
 
         ventana_juego.fill(COLOR_PANTALLA_PUNTAJES)
         pygame.draw.rect(ventana_juego, COLOR_BOTON_MENU, boton_atras_main, border_radius=10)
         ventana_juego.blit(texto_atras_boton, texto_atras_rect)
 
 
-    elif bandera_pantalla == "Juego":
-        juego_pantalla(ventana_juego)
-
+    elif pantalla_actual == "Juego":
+        nueva_pantalla, nueva_celda = juego_pantalla(
+            ventana_juego,
+            bandera_pantalla.get("celda_seleccionada")
+        )
+        bandera_pantalla["pantalla"] = nueva_pantalla
+        bandera_pantalla["celda_seleccionada"] = nueva_celda
+        return bandera_pantalla
 
     pygame.display.flip()
     return bandera_pantalla
-

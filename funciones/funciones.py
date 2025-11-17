@@ -1,5 +1,5 @@
 import pygame
-from contantes import *
+from constantes import *
 #Banderas
 corriendo = True
 bandera_pantalla = "Principal"
