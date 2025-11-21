@@ -1,16 +1,9 @@
-from main import *
 
-corriendo = True
-bandera_pantalla = {
-    "pantalla": "Principal",
-    "celda": None,
-    "tiempo_restante": 60,
-    "tiempo_inicio": -1  
-}
 
 from main import *
 
 corriendo = True
+
 bandera_pantalla = {
     "pantalla": "Principal",
     "celda": None,
