@@ -50,7 +50,7 @@ def dibujar_matriz(matriz: list[list], pantalla: pygame.Surface, celda_selec:tup
                     pantalla,
                     matriz[i][j]["color"],
                     matriz[i][j]["rect"],
-                    color_borde=(255, 255, 0),
+                    color_borde=(5, 5, 5),
                     grosor_borde=5
                 )
             else:
@@ -96,3 +96,4 @@ def generar_matriz_validada(matriz):
         cargar_matriz_aleatoria(matriz, lista_color)
         coincidencias = validar_combinaciones(matriz)
     return coincidencias
+
