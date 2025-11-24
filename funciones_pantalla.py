@@ -8,6 +8,44 @@ cargar_matriz_aleatoria(matriz, lista_color)
 generar_matriz_validada(matriz)
 crear_botones_matriz(matriz, rect_contenedor)
 
+# BOTONES
+y_boton_volver = 380
+y_boton_reiniciar = 450
+ancho_boton = int(ancho_panel * 0.8)
+alto_boton = int(pantalla.get_height() * 0.07)
+
+x_boton = x_panel + (ancho_panel - ancho_boton) // 2
+
+# BOTON REINICIAR
+centro_reiniciar = (
+    x_boton + ancho_boton // 2,
+    y_boton_reiniciar + alto_boton // 2
+)
+boton_reiniciar = crear_boton(
+    "Reiniciar",
+    centro_reiniciar,
+    fuente_pequena,
+    ancho = ancho_boton,
+    alto = alto_boton,
+    color = COLOR_BOTON,
+    color_texto = COLOR_TEXTO
+)
+
+# BOTON VOLVER
+centro_volver = (
+    x_boton + ancho_boton // 2,
+    y_boton_volver + alto_boton // 2
+)
+boton_volver = crear_boton(
+    "Volver",
+    centro_volver,
+    fuente_pequena,
+    ancho = ancho_boton,
+    alto = alto_boton,
+    color = COLOR_BOTON,
+    color_texto = COLOR_TEXTO
+)
+
 def menu_interacciones():
     corriendo = True
     pantalla_actual = "juego"
@@ -20,9 +58,9 @@ def menu_interacciones():
 
             if pantalla_actual == "juego" and evento.type == pygame.MOUSEBUTTONDOWN:
                 # BOTONES
-                if rect_boton_reiniciar.collidepoint(evento.pos):
+                if boton_clickeado(evento, boton_reiniciar):
                     print("Boton Reiniciar presionado")
-                if rect_boton_volver.collidepoint(evento.pos):
+                if boton_clickeado(evento, boton_volver):
                     print("Boton Volver presionado")
                     corriendo = False
 
@@ -55,14 +93,10 @@ def pantalla_juego(celda_seleccionada):
     pantalla.blit(texto_puntaje, rect_texto_puntaje)
 
     # BOTONES
-    pygame.draw.rect(pantalla, COLOR_BOTON, rect_boton_reiniciar)
-    rect_texto_reiniciar = texto_reiniciar.get_rect()
-    rect_texto_reiniciar.center = rect_boton_reiniciar.center
-    pantalla.blit(texto_reiniciar, rect_texto_reiniciar)
-
-    pygame.draw.rect(pantalla, COLOR_BOTON, rect_boton_volver)
-    rect_texto_volver = texto_volver.get_rect()
-    rect_texto_volver.center = rect_boton_volver.center
-    pantalla.blit(texto_volver, rect_texto_volver)
+    # BOTON REINICIAR
+    dibujar_boton(pantalla, boton_reiniciar)
+    
+    # BOTON VOLVER
+    dibujar_boton(pantalla, boton_volver)
 
     pygame.display.flip()

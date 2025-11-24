@@ -1,9 +1,31 @@
 import pygame
 
 from random import randint
-
 from constantes import *
 
+# CREA LOS BOTONES
+def crear_boton(texto, centro, fuente, ancho=200, alto=60, color= COLOR_BOTON, color_texto= COLOR_TEXTO):
+    boton = pygame.Rect(0, 0, ancho, alto)
+    boton.center = centro
+
+    texto_render = fuente.render(texto, True, color_texto)
+    texto_rect = texto_render.get_rect(center=boton.center)
+
+    return {
+        "rect": boton,
+        "texto": texto_render,
+        "texto_rect": texto_rect,
+        "color": color
+    }
+
+# DIBUJA EL BOTON
+def dibujar_boton(ventana, boton):
+    pygame.draw.rect(ventana, boton["color"], boton["rect"], border_radius=10)
+    ventana.blit(boton["texto"], boton["texto_rect"])
+
+# DETECTA SI EL BOTON FUE CLICKEADO
+def boton_clickeado(evento, boton):
+    return evento.type == pygame.MOUSEBUTTONDOWN and boton["rect"].collidepoint(evento.pos)
 
 # INICIALIZAR MATRIZ
 def inicializar_matriz(cant_filas: int, cant_columnas: int, valor_inicial: any = None) -> list[list]:
